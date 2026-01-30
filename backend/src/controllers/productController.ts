@@ -2,11 +2,6 @@ import type { Request, Response } from "express";
 import * as queries from "../db/queries";
 import { getAuth } from "@clerk/express";
 
-interface RouteParams {
-  id: string;
-  [key: string]: string | undefined;
-}
-
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const products = await queries.getAllProducts();
@@ -30,7 +25,7 @@ export const getMyProducts = async (req: Request, res: Response) => {
   }
 };
 
-export const getProductById = async (req: Request<RouteParams>, res: Response) => {
+export const getProductById = async (req: Request<any>, res: Response) => {
   try {
     const { id } = req.params;
     const product = await queries.getProductById(id as string);
@@ -71,9 +66,9 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const updateProduct = async (req: Request<RouteParams>, res: Response) => {
+export const updateProduct = async (req: Request<any>, res: Response) => {
   try {
-    const auth = getAuth(req as any);
+    const auth = getAuth(req);
     const userId = auth.userId;
     
     if (!userId) return res.status(401).json({ error: "Unauthorized" });
@@ -105,9 +100,9 @@ export const updateProduct = async (req: Request<RouteParams>, res: Response) =>
   }
 };
 
-export const deleteProduct = async (req: Request<RouteParams>, res: Response) => {
+export const deleteProduct = async (req: Request<any>, res: Response) => {
   try {
-    const auth = getAuth(req as any);
+    const auth = getAuth(req);
     const userId = auth.userId;
 
     if (!userId) return res.status(401).json({ error: "Unauthorized" });
