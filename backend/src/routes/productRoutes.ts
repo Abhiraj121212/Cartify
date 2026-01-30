@@ -5,12 +5,10 @@ import { requireAuth } from "@clerk/express";
 const router = Router();
 
 router.get("/", productController.getAllProducts);
-router.get("/my", requireAuth(), productController.getMyProducts);
-router.get("/:id", productController.getProductById);
+router.get("/my", requireAuth(), productController.getMyProducts as any);
+router.get("/:id", productController.getProductById as any);
 router.post("/", requireAuth(), productController.createProduct);
-router.put("/:id", requireAuth(), productController.updateProduct);
-router.delete("/:id", requireAuth(), productController.deleteProduct);
-
-
+router.put("/:id", requireAuth(), productController.updateProduct as any);
+router.delete("/:id", requireAuth(), productController.deleteProduct as any);
 
 export default router;
