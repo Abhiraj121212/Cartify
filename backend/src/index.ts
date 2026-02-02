@@ -18,11 +18,7 @@ app.use(clerkMiddleware());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/users", userRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/comments", commentRoutes);
-
-app.get("/api", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.json({
     message: "Welcome to Cartify API",
     endpoints: {
@@ -32,6 +28,12 @@ app.get("/api", (req, res) => {
     },
   });
 });
+
+
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/comments", commentRoutes);
+
 
 if (ENV.NODE_ENV === "production") {
 
